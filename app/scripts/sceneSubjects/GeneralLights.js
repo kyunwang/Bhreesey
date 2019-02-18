@@ -1,5 +1,4 @@
 import { PointLight } from 'three';
-import GeneralLights from './GeneralLights';
 
 class GeneralLights {
 	constructor(scene) {
