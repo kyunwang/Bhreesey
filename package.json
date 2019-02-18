@@ -4,8 +4,39 @@
 	"description": "A three js base",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"start": "npm run dev",
+		"dev-s": "webpack-serve --config=./config/webpack.config.js",
+		"dev": "webpack-dev-server --env=development --config=./config/webpack.config.js",
+		"build": "webpack --env=production --config=./config/webpack.config.js",
+		"deploy-gh": "gh-pages -d dist"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kyunwang/THREE-base.git"
 	},
 	"author": "Kang Yun Wang <kevinwang8011@hotmail.com>",
-	"license": "MIT"
+	"license": "MIT",
+	"devDependencies": {
+		"babel-core": "^6.26.3",
+		"babel-loader": "^8.0.5",
+		"babel-preset-env": "^1.7.0",
+		"css-loader": "^2.1.0",
+		"dotenv": "^6.2.0",
+		"fast-sass-loader": "^1.4.7",
+		"gh-pages": "^2.0.1",
+		"html-webpack-plugin": "^3.2.0",
+		"mini-css-extract-plugin": "^0.5.0",
+		"node-sass": "^4.11.0",
+		"prettier": "^1.16.4",
+		"style-loader": "^0.23.1",
+		"uglifyjs-webpack-plugin": "^2.1.1",
+		"webpack-cli": "^3.2.3",
+		"webpack-dev-server": "^3.1.14",
+		"webpack-merge": "^4.2.1",
+		"webpack": "^4.29.5"
+	},
+	"dependencies": {
+		"@wildpeaks/three-webpack-plugin": "^2.0.0",
+		"three": "^0.101.1"
+	}
 }
