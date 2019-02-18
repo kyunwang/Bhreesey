@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ThreeWebpackPlugin = require('@wildpeaks/three-webpack-plugin');
 
 const devConfig = require('./webpack.dev');
-// const parts = require('./webpack.parts');
+const parts = require('./webpack.parts');
 
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
@@ -33,6 +33,7 @@ const baseConfig = webpackMerge([
 			new ThreeWebpackPlugin(),
 		],
 	},
+	parts.loadCss(),
 ]);
 
 /*==========================
