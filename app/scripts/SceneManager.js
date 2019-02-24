@@ -37,6 +37,8 @@ class SceneManager {
 		});
 
 		const DPR = window.devicePixelRatio ? window.devicePixelRatio : 1;
+		newRenderer.shadowMap.enabled = true;
+		newRenderer.setClearColor(0x000000, 0);
 		newRenderer.setPixelRatio(DPR);
 		newRenderer.setSize(width, height);
 
@@ -50,7 +52,7 @@ class SceneManager {
 		const aspectRatio = width / height;
 		const fieldOfView = 60;
 		const nearPlane = 1;
-		const farPlane = 100;
+		const farPlane = 10000;
 		const newCamera = new PerspectiveCamera(
 			fieldOfView,
 			aspectRatio,
