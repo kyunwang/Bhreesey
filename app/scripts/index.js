@@ -1,7 +1,8 @@
 import '../styles/index.css';
-
 import SceneManager from './SceneManager';
+import { createStats } from './utils/stats';
 
+const stats = createStats();
 const canvas = document.getElementById('canvas');
 // Pass canvas so sceneManager is DOM independent
 const sceneManager = new SceneManager(canvas);
@@ -26,8 +27,17 @@ function bindEventListeners() {
 }
 
 function render() {
-	requestAnimationFrame(render);
+	if (stats) {
+		stats.begin();
+	}
+
 	sceneManager.update();
+
+	if (stats) {
+		stats.end();
+	}
+
+	requestAnimationFrame(render);
 }
 
 bindEventListeners();
