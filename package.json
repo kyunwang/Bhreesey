@@ -36,7 +36,8 @@
 	},
 	"dependencies": {
 		"@wildpeaks/three-webpack-plugin": "^2.0.0",
+		"dat.gui": "^0.7.6",
 		"stats.js": "^0.17.0",
-		"three": "^0.101.1"
+		"three": "^0.103.0"
 	}
 }
