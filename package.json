@@ -17,9 +17,10 @@
 	"author": "Kang Yun Wang <kevinwang8011@hotmail.com>",
 	"license": "MIT",
 	"devDependencies": {
-		"babel-core": "^6.26.3",
-		"babel-loader": "^8.0.5",
-		"babel-preset-env": "^1.7.0",
+		"@babel/core": "^7.5.5",
+		"@babel/plugin-proposal-class-properties": "^7.5.5",
+		"@babel/preset-env": "^7.5.5",
+		"babel-loader": "^8.0.6",
 		"copy-webpack-plugin": "^4.6.0",
 		"css-loader": "^2.1.0",
 		"dotenv": "^6.2.0",
@@ -29,15 +30,15 @@
 		"prettier": "^1.16.4",
 		"style-loader": "^0.23.1",
 		"uglifyjs-webpack-plugin": "^2.1.1",
+		"webpack": "^4.29.5",
 		"webpack-cli": "^3.2.3",
 		"webpack-dev-server": "^3.1.14",
-		"webpack-merge": "^4.2.1",
-		"webpack": "^4.29.5"
+		"webpack-merge": "^4.2.1"
 	},
 	"dependencies": {
 		"@wildpeaks/three-webpack-plugin": "^2.0.0",
 		"dat.gui": "^0.7.6",
 		"stats.js": "^0.17.0",
-		"three": "^0.103.0"
+		"three": "^0.108.0"
 	}
 }

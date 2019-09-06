@@ -24,6 +24,14 @@ const baseConfig = webpackMerge([
 		/*==========================
 		=== Plugins
 		===========================*/
+		module: {
+			rules: [
+				{ test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
+			],
+		},
+		/*==========================
+		=== Plugins
+		===========================*/
 		plugins: [
 			new HTMLWebpackPlugin({
 				title: 'THREE base',
