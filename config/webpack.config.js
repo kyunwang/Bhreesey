@@ -21,6 +21,10 @@ const baseConfig = webpackMerge([
 	{
 		mode: process.env.NODE_ENV || 'development',
 		entry: path.resolve(__root, 'app/scripts'),
+		output: {
+			path: path.resolve(__root, 'dist'),
+			filename: 'index_bundle.js',
+		},
 		/*==========================
 		=== Plugins
 		===========================*/
@@ -41,7 +45,7 @@ const baseConfig = webpackMerge([
 				filename: devMode ? '[name].css' : '[name].[hash].css',
 				chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
 			}),
-			new ThreeWebpackPlugin(),
+			// new ThreeWebpackPlugin(),
 			new CopyWebpackPlugin([
 				{
 					from: path.resolve(__root, 'public'),
