@@ -5,7 +5,6 @@
 import { Clock, WebGLRenderer, Scene, Color, PerspectiveCamera } from 'three';
 
 import GeneralLights from './sceneSubjects/GeneralLights';
-import SceneSubject from './sceneSubjects/SceneSubject';
 
 class SceneManager {
 	constructor(canvas) {
@@ -19,7 +18,7 @@ class SceneManager {
 		this.scene = this.buildScene();
 		this.renderer = this.buildRenderer(this.screenDimensions);
 		this.camera = this.buildCamera(this.screenDimensions);
-		this.sceneSubjects = this.createSceneSubjects(this.scene);
+		this.updateableSubjects = [];
 	}
 
 	buildScene() {
@@ -63,16 +62,33 @@ class SceneManager {
 		return newCamera;
 	}
 
-	createSceneSubjects(scene) {
-		const sceneSubjects = [new GeneralLights(scene), new SceneSubject(scene)];
+	addLight = () => new GeneralLights(this.scene);
 
-		return sceneSubjects;
-	}
+	// TODO: Allow arrays too
+	addToUpdate = subject => {
+		if (subject.update) {
+			this.updateableSubjects.push(subject);
+		}
+	};
+
+	// TODO: Allow arrays too
+	removeFromUpdate = subject => {
+		const index = this.updateableSubjects.indexOf(subject);
+		if (index >= 0) {
+			this.updateableSubjects = [
+				...this.updateableSubjects.slice(0, index),
+				...this.updateableSubjects.slice(
+					index + 1,
+					this.updateableSubjects.length
+				),
+			];
+		}
+	};
 
 	update() {
 		const elapsedTime = this.clock.getElapsedTime();
 
-		for (let sceneSubject of this.sceneSubjects) {
+		for (let sceneSubject of this.updateableSubjects) {
 			sceneSubject.update(elapsedTime);
 		}
 

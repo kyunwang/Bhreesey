@@ -1,23 +1,51 @@
-import { Mesh, IcosahedronBufferGeometry, MeshStandardMaterial } from 'three';
+import {
+	Mesh,
+	IcosahedronBufferGeometry,
+	MeshStandardMaterial,
+	SphereGeometry,
+	MeshNormalMaterial,
+} from 'three';
 
-class SceneSubject {
+export class PerlinSphere {
 	constructor(scene) {
-		const radius = 2;
-		const geometry = new IcosahedronBufferGeometry(radius, 2);
-		const material = new MeshStandardMaterial({ flatShading: true });
+		const geometry = new SphereGeometry(1, 128, 128);
+		const material = new MeshNormalMaterial({ flatShading: true });
+		const mesh = new Mesh(geometry, material);
 
-		this.mesh = new Mesh(geometry, material);
-
-		this.mesh.position.set(0, 0, -20);
-		scene.add(this.mesh);
-
-		this.update = this.update.bind(this);
+		scene.add(mesh);
+		this.mesh = mesh;
 	}
 
-	update(time) {
-		const scale = Math.sin(time) + 2;
-		this.mesh.scale.set(scale, scale, scale);
-	}
+	update = time => {
+		if (!time) return;
+
+		// const scale = Math.sin(time) + 2;
+		// this.mesh.scale.set(scale, scale, scale);
+
+		for (let index = 0; index < this.mesh.geometry.vertices.length; index++) {
+			const element = this.mesh.geometry.vertices[index];
+		}
+
+		this.mesh.geometry.verticesNeedUpdate = true;
+	};
 }
 
-export default SceneSubject;
+export const buildIcosahedron = scene => {
+	const radius = 0;
+	const geometry = new IcosahedronBufferGeometry(radius, 2);
+	const material = new MeshStandardMaterial({ flatShading: true });
+	const mesh = new Mesh(geometry, material);
+
+	scene.add(mesh);
+	return mesh;
+};
+
+export const buildSphere = scene => {
+	const radius = 0;
+	const geometry = new SphereGeometry(1, 128, 128);
+	const material = new MeshNormalMaterial({ flatShading: true });
+	const mesh = new Mesh(geometry, material);
+
+	scene.add(mesh);
+	return mesh;
+};
