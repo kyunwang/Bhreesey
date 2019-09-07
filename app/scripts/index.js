@@ -2,7 +2,7 @@ import '../styles/index.css';
 
 import { createStats, checkStats } from './SceneManager/utils/stats';
 import { PerlinSphere } from './sceneSubjects/SceneSubject';
-import GeneralLight from './sceneSubjects/GeneralLight';
+import GeneralLight from './SceneManager/GeneralSubjects/GeneralLight';
 import SceneManager from './SceneManager/SceneManager';
 import { bindEventListeners } from './SceneManager/utils/helpers';
 
