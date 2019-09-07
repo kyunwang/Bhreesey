@@ -13,12 +13,9 @@ import { noise } from '../utils/perlin';
 
 export class PerlinSphere {
 	constructor(scene) {
-		const geometry = new SphereGeometry(1, 128, 128);
+		const geometry = new SphereGeometry(1, 256, 256);
 		const material = new MeshNormalMaterial({ flatShading: false });
 		// const material = new MeshLambertMaterial({ flatShading: false });
-		// const material = new MeshDepthMaterial({ flatShading: false });
-		// const material = new MeshDistanceMaterial({ flatShading: false });
-
 		const mesh = new Mesh(geometry, material);
 
 		scene.add(mesh);
@@ -27,18 +24,28 @@ export class PerlinSphere {
 
 	update = time => {
 		if (!time) return;
+
 		const { geometry } = this.mesh;
 
 		// const scale = Math.sin(time) + 2;
 		// this.mesh.scale.set(scale, scale, scale);
 		const amount = 1.5;
 
+		this.animTest1(geometry, time, amount);
+		// this.animTest2(geometry,time, amount);
+
+		geometry.verticesNeedUpdate = true;
+		geometry.computeVertexNormals();
+		geometry.normalsNeedUpdate = true;
+	};
+
+	animTest1 = (geometry, time, amount) => {
 		for (let index = 0; index < geometry.vertices.length; index++) {
 			const vertice = geometry.vertices[index];
 			const verticeNoise =
 				0.3 *
 				noise.perlin3(
-					vertice.x * amount,
+					vertice.x * amount + time,
 					vertice.y * amount,
 					vertice.z * amount
 				);
@@ -47,10 +54,20 @@ export class PerlinSphere {
 				.normalize() // Keep in place
 				.multiplyScalar(verticeNoise + 1);
 		}
+	};
 
-		geometry.verticesNeedUpdate = true;
-		geometry.computeVertexNormals();
-		geometry.normalsNeedUpdate = true;
+	animTest2 = (geometry, time, amount) => {
+		for (let index = 0; index < geometry.faces.length; index++) {
+			const uv = geometry.faceVertexUvs[0][index]; // An array in another array
+			const face = geometry.faces[index];
+			const vertice = geometry.vertices[face.a]; // The first vertex of each face
+			const verticeNoise =
+				0.3 * noise.perlin3(uv[0].x * amount, uv[0].y * amount, time);
+
+			vertice
+				.normalize() // Keep in place
+				.multiplyScalar(verticeNoise + 1);
+		}
 	};
 }
 
