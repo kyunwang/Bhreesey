@@ -1,10 +1,10 @@
 import '../styles/index.css';
 
-import { createStats } from './utils/stats';
+import { createStats, checkStats } from './SceneManager/utils/stats';
 import { PerlinSphere } from './sceneSubjects/SceneSubject';
 import GeneralLight from './sceneSubjects/GeneralLight';
-import SceneManager from './SceneManager';
-import { bindEventListeners } from './utils/helpers';
+import SceneManager from './SceneManager/SceneManager';
+import { bindEventListeners } from './SceneManager/utils/helpers';
 
 const stats = createStats();
 const canvas = document.getElementById('canvas');
@@ -17,6 +17,10 @@ pSphere.mesh.position.set(0, 0, -3);
 const light = new GeneralLight(sceneManager.scene, {
 	type: 'Ambient',
 	hasHelper: true,
+	// light: {
+	// 	color: 'red',
+	// 	intensity: 0.1,
+	// },
 });
 
 sceneManager.addToUpdate([pSphere]);
@@ -37,25 +41,15 @@ const eventListeners = [
 	},
 ];
 
-// function bindEventListeners() {
-// 	window.addEventListener('resize', resizeCanvas);
-
-// 	resizeCanvas();
-// }
-
 // Loop where custom subject update methods can be called in addition to the generic one
 function render() {
-	if (stats) {
-		stats.begin();
-	}
-
-	sceneManager.update();
-
-	if (stats) {
-		stats.end();
-	}
+	checkStats(stats, update);
 
 	requestAnimationFrame(render);
+}
+
+function update() {
+	sceneManager.update();
 }
 
 bindEventListeners(eventListeners);

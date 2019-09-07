@@ -9,13 +9,13 @@ import {
 	MeshDistanceMaterial,
 } from 'three';
 
-import { noise } from '../utils/perlin';
+import { noise } from '../SceneManager/utils/perlin';
 
 export class PerlinSphere {
 	constructor(scene) {
 		const geometry = new SphereGeometry(1, 256, 256);
-		const material = new MeshNormalMaterial({ flatShading: false });
-		// const material = new MeshLambertMaterial({ flatShading: false });
+		// const material = new MeshNormalMaterial({ flatShading: false });
+		const material = new MeshLambertMaterial({ flatShading: false });
 		const mesh = new Mesh(geometry, material);
 
 		scene.add(mesh);

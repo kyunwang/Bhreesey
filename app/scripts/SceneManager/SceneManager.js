@@ -65,7 +65,6 @@ class SceneManager {
 		return newCamera;
 	}
 
-	// TODO: Allow arrays too (defautl only arrays)
 	addToUpdate = subjects => {
 		if (!isArray(subjects)) return;
 
@@ -77,7 +76,6 @@ class SceneManager {
 		});
 	};
 
-	// TODO: Allow arrays too
 	removeFromUpdate = subjects => {
 		if (!isArray(subjects)) return;
 

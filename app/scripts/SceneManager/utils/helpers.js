@@ -1,6 +1,4 @@
-export const isArray = array => {
-	return Array.isArray(array);
-};
+export const isArray = array => Array.isArray(array);
 
 export const bindEventListeners = events => {
 	if (!isArray(events)) return;

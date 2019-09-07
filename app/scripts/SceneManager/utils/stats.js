@@ -1,6 +1,6 @@
 import Stats from 'stats.js';
 
-export function createStats(type = 0) {
+export const createStats = (type = 0) => {
 	const stats = new Stats();
 	const panelType =
 		typeof type !== 'undefined' && type && !isNaN(type) ? parseInt(type) : 0;
@@ -9,4 +9,10 @@ export function createStats(type = 0) {
 	document.body.appendChild(stats.dom);
 
 	return stats;
-}
+};
+
+export const checkStats = (stats, callback) => {
+	stats.begin();
+	callback();
+	stats.end();
+};
