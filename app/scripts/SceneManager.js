@@ -85,6 +85,7 @@ class SceneManager {
 		}
 	};
 
+	// Update all added subjects, update & pass elapsedtTime as param
 	update() {
 		const elapsedTime = this.clock.getElapsedTime();
 

@@ -10,10 +10,10 @@ const canvas = document.getElementById('canvas');
 
 // Pass canvas so sceneManager is DOM independent
 const sceneManager = new SceneManager(canvas);
-// const light = sceneManager.addLight();
+const light = sceneManager.addLight();
 
 const pSphere = new PerlinSphere(sceneManager.scene);
-pSphere.mesh.position.set(0, 0, -10);
+pSphere.mesh.position.set(0, 0, -3);
 // pSphere.mesh.geometry.verticesNeedUpdate = true;
 
 sceneManager.addToUpdate(pSphere);
@@ -41,6 +41,7 @@ function bindEventListeners() {
 	resizeCanvas();
 }
 
+// Loop where custom subject update methods can be called in addition to the generic one
 function render() {
 	if (stats) {
 		stats.begin();
