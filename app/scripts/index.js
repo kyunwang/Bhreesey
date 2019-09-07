@@ -1,10 +1,10 @@
 import '../styles/index.css';
 
 import { createStats, checkStats } from './SceneManager/utils/stats';
-import { PerlinSphere } from './sceneSubjects/SceneSubject';
+import { bindEventListeners, debounce } from './SceneManager/utils/helpers';
 import GeneralLight from './SceneManager/GeneralSubjects/GeneralLight';
+import PerlinSphere from './sceneSubjects/PerlinSphere';
 import SceneManager from './SceneManager/SceneManager';
-import { bindEventListeners } from './SceneManager/utils/helpers';
 
 const stats = createStats();
 const canvas = document.getElementById('canvas');
@@ -12,7 +12,6 @@ const canvas = document.getElementById('canvas');
 const sceneManager = new SceneManager(canvas);
 const pSphere = new PerlinSphere(sceneManager.scene);
 pSphere.mesh.position.set(0, 0, -3);
-// pSphere.mesh.geometry.verticesNeedUpdate = true;
 
 const light = new GeneralLight(sceneManager.scene, {
 	type: 'Ambient',
@@ -29,14 +28,14 @@ sceneManager.addToUpdate([pSphere]);
 // 	sceneManager.removeFromUpdate([pSphere]);
 // }, 3000);
 
-function resizeCanvas(e) {
+const onResize = debounce(() => {
 	sceneManager.onWindowResize();
-}
+}, 300);
 
 const eventListeners = [
 	{
 		type: 'resize',
-		callback: resizeCanvas,
+		callback: onResize,
 		target: window,
 	},
 ];
@@ -44,15 +43,15 @@ const eventListeners = [
 // Loop where custom subject update methods can be called in addition to the generic one
 function render() {
 	checkStats(stats, update);
-
 	requestAnimationFrame(render);
 }
 
+// Everything we want to update can be placed here
 function update() {
 	sceneManager.update();
 }
 
 bindEventListeners(eventListeners);
-resizeCanvas();
-// bindEventListeners();
 render();
+
+sceneManager.onWindowResize();

@@ -11,7 +11,7 @@ import {
 
 import { noise } from '../SceneManager/utils/perlin';
 
-export class PerlinSphere {
+class PerlinSphere {
 	constructor(scene) {
 		const geometry = new SphereGeometry(1, 256, 256);
 		// const material = new MeshNormalMaterial({ flatShading: false });
@@ -71,22 +71,4 @@ export class PerlinSphere {
 	};
 }
 
-export const buildIcosahedron = scene => {
-	const radius = 0;
-	const geometry = new IcosahedronBufferGeometry(radius, 2);
-	const material = new MeshStandardMaterial({ flatShading: true });
-	const mesh = new Mesh(geometry, material);
-
-	scene.add(mesh);
-	return mesh;
-};
-
-export const buildSphere = scene => {
-	const radius = 0;
-	const geometry = new SphereGeometry(1, 128, 128);
-	const material = new MeshNormalMaterial({ flatShading: true });
-	const mesh = new Mesh(geometry, material);
-
-	scene.add(mesh);
-	return mesh;
-};
+export default PerlinSphere;
