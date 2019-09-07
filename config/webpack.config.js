@@ -3,7 +3,6 @@ const webpackMerge = require('webpack-merge');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ThreeWebpackPlugin = require('@wildpeaks/three-webpack-plugin');
 
 const devConfig = require('./webpack.dev');
 const parts = require('./webpack.parts');
@@ -25,12 +24,25 @@ const baseConfig = webpackMerge([
 			path: path.resolve(__root, 'dist'),
 			filename: 'index_bundle.js',
 		},
+		optimization: {
+			removeAvailableModules: false,
+			removeEmptyChunks: false,
+			splitChunks: false,
+		},
+		performance: {
+			hints: 'warning',
+		},
 		/*==========================
 		=== Plugins
 		===========================*/
 		module: {
 			rules: [
-				{ test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
+				{
+					test: /\.js$/,
+					include: path.resolve(__root, 'app/scripts'),
+					exclude: path.resolve(__root, 'node_modules'),
+					loader: 'babel-loader',
+				},
 			],
 		},
 		/*==========================
