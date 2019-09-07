@@ -2,9 +2,12 @@
 // Initialise SceneSubjects - One scene entity
 // Update every frame
 
+//TODO: Rewrite to use functional prototype / function class
+// As this is the 'base system' - for the teeny bit performance ¯\_(ツ)_/¯
+// All subjects do not matter as they are not really part of the system
+// Maybe
 import { Clock, WebGLRenderer, Scene, Color, PerspectiveCamera } from 'three';
-
-import GeneralLights from './sceneSubjects/GeneralLights';
+import { isArray } from './utils/helpers';
 
 class SceneManager {
 	constructor(canvas) {
@@ -62,27 +65,34 @@ class SceneManager {
 		return newCamera;
 	}
 
-	addLight = () => new GeneralLights(this.scene);
+	// TODO: Allow arrays too (defautl only arrays)
+	addToUpdate = subjects => {
+		if (!isArray(subjects)) return;
 
-	// TODO: Allow arrays too
-	addToUpdate = subject => {
-		if (subject.update) {
-			this.updateableSubjects.push(subject);
-		}
+		// If it is an array
+		subjects.forEach(subject => {
+			if (subject.update) {
+				this.updateableSubjects.push(subject);
+			}
+		});
 	};
 
 	// TODO: Allow arrays too
-	removeFromUpdate = subject => {
-		const index = this.updateableSubjects.indexOf(subject);
-		if (index >= 0) {
-			this.updateableSubjects = [
-				...this.updateableSubjects.slice(0, index),
-				...this.updateableSubjects.slice(
-					index + 1,
-					this.updateableSubjects.length
-				),
-			];
-		}
+	removeFromUpdate = subjects => {
+		if (!isArray(subjects)) return;
+
+		subjects.forEach(subject => {
+			const index = this.updateableSubjects.indexOf(subject);
+			if (index >= 0) {
+				this.updateableSubjects = [
+					...this.updateableSubjects.slice(0, index),
+					...this.updateableSubjects.slice(
+						index + 1,
+						this.updateableSubjects.length
+					),
+				];
+			}
+		});
 	};
 
 	// Update all added subjects, update & pass elapsedtTime as param
@@ -97,8 +107,13 @@ class SceneManager {
 	}
 
 	onWindowResize() {
-		const { width, height } = canvas;
+		const { canvas } = this;
+		canvas.style.width = '100%';
+		canvas.style.height = '100%';
+		canvas.width = canvas.offsetWidth;
+		canvas.height = canvas.offsetHeight;
 
+		const { width, height } = canvas;
 		this.screenDimensions.width = width;
 		this.screenDimensions.height = height;
 
