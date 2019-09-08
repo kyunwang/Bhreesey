@@ -8,18 +8,21 @@ import {
 	MeshDepthMaterial,
 	MeshDistanceMaterial,
 } from 'three';
-
 import { noise } from '../SceneManager/utils/perlin';
 
 class PerlinSphere {
 	constructor(scene) {
 		const geometry = new SphereGeometry(1, 256, 256);
-		// const material = new MeshNormalMaterial({ flatShading: false });
-		const material = new MeshLambertMaterial({ flatShading: false });
+		const material = new MeshNormalMaterial({ flatShading: false });
+		// const material = new MeshLambertMaterial({ flatShading: false });
 		const mesh = new Mesh(geometry, material);
 
 		scene.add(mesh);
 		this.mesh = mesh;
+
+		// Variables
+		this.amount = 1.5;
+		this.animNumber = 1;
 	}
 
 	update = time => {
@@ -27,11 +30,7 @@ class PerlinSphere {
 
 		const { geometry } = this.mesh;
 
-		// const scale = Math.sin(time) + 2;
-		// this.mesh.scale.set(scale, scale, scale);
-		const amount = 1.5;
-
-		this.animTest1(geometry, time, amount);
+		this[`animTest${this.animNumber}`](geometry, time, this.amount);
 		// this.animTest2(geometry,time, amount);
 
 		geometry.verticesNeedUpdate = true;

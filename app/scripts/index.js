@@ -1,12 +1,12 @@
 import '../styles/index.css';
 
 import { createStats, checkStats } from './SceneManager/utils/stats';
+import { createDatGUI } from './SceneManager/utils/dat.gui';
 import { bindEventListeners, debounce } from './SceneManager/utils/helpers';
 import GeneralLight from './SceneManager/GeneralSubjects/GeneralLight';
 import PerlinSphere from './sceneSubjects/PerlinSphere';
 import SceneManager from './SceneManager/SceneManager';
 
-const stats = createStats();
 const canvas = document.getElementById('canvas');
 
 const sceneManager = new SceneManager(canvas);
@@ -16,13 +16,15 @@ pSphere.mesh.position.set(0, 0, -3);
 const light = new GeneralLight(sceneManager.scene, {
 	type: 'Ambient',
 	hasHelper: true,
-	// light: {
-	// 	color: 'red',
-	// 	intensity: 0.1,
-	// },
 });
 
 sceneManager.addToUpdate([pSphere]);
+
+// Creat stats & gui
+const stats = createStats();
+const gui = createDatGUI();
+gui.add(pSphere, 'amount', 0.5, 2.5, 0.1);
+gui.add(pSphere, 'animNumber', { animationOne: 1, animationTwo: 2 });
 
 // setTimeout(() => {
 // 	sceneManager.removeFromUpdate([pSphere]);
