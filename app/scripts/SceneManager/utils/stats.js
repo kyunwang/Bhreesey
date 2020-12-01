@@ -11,8 +11,18 @@ export const createStats = (type = 0) => {
 	return stats;
 };
 
-export const checkStats = (stats, callback) => {
+const statsOptions = {
+	condition: true,
+	args: null,
+};
+
+export const checkStats = (stats, callback, options = statsOptions) => {
+	if (!options.condition) {
+		callback();
+		return;
+	}
+
 	stats.begin();
-	callback();
+	callback(options.args);
 	stats.end();
 };

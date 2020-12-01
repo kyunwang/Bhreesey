@@ -34,14 +34,6 @@ const onResize = debounce(() => {
 	sceneManager.onWindowResize();
 }, 300);
 
-const eventListeners = [
-	{
-		type: 'resize',
-		callback: onResize,
-		target: window,
-	},
-];
-
 // Loop where custom subject update methods can be called in addition to the generic one
 function render() {
 	checkStats(stats, update);

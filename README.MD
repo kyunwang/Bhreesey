@@ -22,7 +22,7 @@ Things I might do or not - they are just on my mind
 
 #### Code related
 - [ ] check usability to have a helper for interaction (raycasting and shizz)
-- [ ] 
+- [ ] use/try mobx instead of context?
 
 #### Other stuff
 - [ ] make a package out of it? (should it be static like that or configurable by me when needed?? - again not a lot to configure though) 
