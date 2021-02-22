@@ -1,7 +1,7 @@
 import '../styles/index.css';
 
 import { createStats, checkStats } from './SceneManager/utils/stats';
-import { createDatGUI } from './SceneManager/utils/dat.gui';
+import { createPane } from './SceneManager/utils/tweakpane';
 import { bindEventListeners, debounce } from './SceneManager/utils/helpers';
 import GeneralLight from './SceneManager/GeneralSubjects/GeneralLight';
 import PerlinSphere from './sceneSubjects/PerlinSphere';
@@ -22,9 +22,12 @@ sceneManager.addToUpdate([pSphere]);
 
 // Creat stats & gui
 const stats = createStats();
-const gui = createDatGUI();
-gui.add(pSphere, 'amount', 0.5, 2.5, 0.1);
-gui.add(pSphere, 'animNumber', { animationOne: 1, animationTwo: 2 });
+const gui = createPane();
+gui.addInput(pSphere, 'amount', {
+	min: 0.5,
+	max: 2.5
+});
+// gui.add(pSphere, 'animNumber', { animationOne: 1, animationTwo: 2 });
 
 // setTimeout(() => {
 // 	sceneManager.removeFromUpdate([pSphere]);
@@ -45,7 +48,7 @@ function update() {
 	sceneManager.update();
 }
 
-bindEventListeners(eventListeners);
+// bindEventListeners(eventListeners);
 render();
 
 sceneManager.onWindowResize();
